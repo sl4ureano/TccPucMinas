@@ -1,0 +1,384 @@
+<div class="sidebar">
+  <!-- Cabeçalho do Menu Lateral -->
+  <img src="assets/img/logo-boa.png" alt="Saborito" height="200" style="position: relative;left: 20px;">
+  <h2 style="color: white; text-align: center;position: relative;top: -20px;">Saborito</h2><br>
+  <!-- Links do Menu Lateral -->
+  <a *ngIf="this.user?.role == 'Admin' " (click)="openModalPedidos()">Pedidos</a>
+  <a *ngIf="this.user?.role == 'Admin' " (click)="openModalProdutos()">Produtos</a>
+  <a *ngIf="this.user?.role == 'Admin'" (click)="openModalCategorias()">Categorias</a>
+  <a *ngIf="this.user?.role == 'Admin'" (click)="openModalAlunos()">Alunos</a>
+  <a  *ngIf="this.user?.role == 'Admin'" (click)="openModalResponsaveis()">Responsáveis</a>
+
+  <a *ngIf="this.user?.role == 'User'" (click)="openModalFilhos()">Filhos</a>
+  <a *ngIf="this.user?.role == 'User'" (click)="openModalPedidosERecarga()">Recargas e Pedidos</a>
+
+</div>
+
+
+<div class="content" *ngIf="this.user?.role == 'User'">
+  <!-- Cabeçalho Superior -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <!-- Saudações e Boas-vindas -->
+      <span class="navbar-text">
+        Bem-vindo, {{user?.userName}}
+      </span>
+    </div>
+    <button class="btn btn-danger" (click)="OnSair()">sair</button>
+  </nav>
+  </div>
+
+
+<div class="modal" tabindex="-1" [ngClass]="{'show': showModalProdutos}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Produtos</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModalProdutos()"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Preço</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of products">
+              <td>{{ item?.nome }}</td>
+              <td>{{ item?.preco | currency: 'BRL' }}</td>
+              <td>
+                <button class="btn btn-sm btn-danger" (click)="excluirProduto(item)">
+                  <i class="bi bi-trash"></i> Excluir
+                </button>
+                <button class="btn btn-sm btn-primary" (click)="editarProduto(item)">
+                  <i class="bi bi-pencil"></i> Editar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="modal" tabindex="-1" [ngClass]="{'show': showModalCategorias}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Categorias</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModalCategorias()"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of categorias">
+              <td>{{ item?.id }}</td>
+              <td>{{ item?.nome }}</td>
+              <td>
+                <button class="btn btn-sm btn-danger" (click)="excluirCategorias(item)">
+                  <i class="bi bi-trash"></i> Excluir
+                </button>
+                <button class="btn btn-sm btn-primary" (click)="editarCategorias(item)">
+                  <i class="bi bi-pencil"></i> Editar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="modal" tabindex="-1" [ngClass]="{'show': showModalAlunos}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Alunos</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModalAlunos()"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>SobreNome</th>
+              <th>Email</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of alunos">
+              <td>{{ item?.firstName }}</td>
+              <td>{{ item?.lastName }}</td>
+              <td>{{ item?.email }}</td>
+              <td>
+                <button class="btn btn-sm btn-danger" (click)="excluirAlunos(item)">
+                  <i class="bi bi-trash"></i> Excluir
+                </button>
+                <button class="btn btn-sm btn-primary" (click)="editarAlunos(item)">
+                  <i class="bi bi-pencil"></i> Editar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal" tabindex="-1" [ngClass]="{'show': showModalResponsaveis}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Responsaveis</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModalResponsaveis()"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>SobreNome</th>
+              <th>Email</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of alunos">
+              <td>{{ item?.firstName }}</td>
+              <td>{{ item?.lastName }}</td>
+              <td>{{ item?.email }}</td>
+              <td>
+                <button class="btn btn-sm btn-danger" (click)="excluirAlunos(item)">
+                  <i class="bi bi-trash"></i> Excluir
+                </button>
+                <button class="btn btn-sm btn-primary" (click)="editarAlunos(item)">
+                  <i class="bi bi-pencil"></i> Editar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="modal" tabindex="-1" [ngClass]="{'show': showModalPedidos}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pedidos</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModalPedidos()"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Total</th>
+              <th>Taxa</th>
+              <th>Aluno</th>
+              <th>Produtos</th> <!-- Nova coluna para os produtos -->
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of pedidos">
+              <td>{{ item?.id }}</td>
+              <td>{{ item?.total | currency: 'BRL' }}</td>
+              <td>{{ item?.total * 0.05 | currency: 'BRL' }}</td>
+              <td>{{ item?.user?.firstName}} {{item?.user?.lastName}}</td>
+              <td>
+                <table class="table table-striped"> <!-- Tabela aninhada para os produtos -->
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Preço</th>
+                      <th>Imagem</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let produto of item.products">
+                      <td>{{ produto.nome }}</td>
+                      <td>{{ produto.preco | currency: 'BRL' }}</td>
+                      <td>
+                        <img [src]="produto.imagem.path" alt="{{ produto.nome }}" height="50">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-danger" (click)="excluirAlunos(item)">
+                  <i class="bi bi-trash"></i> Negar Pedido
+                </button>
+                <button class="btn btn-sm btn-success" (click)="editarAlunos(item)">
+                  <i class="bi bi-check"></i> Entregue
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="modal" tabindex="-1" [ngClass]="{'show': showModalFilhos}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Filhos</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModalFilhos()"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Sobrenome</th>
+              <th>Saldo</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of filhos">
+              <td>{{ item?.firstName }}</td>
+              <td>{{ item?.lastName }}</td>
+              <td>{{ item?.saldo || 0 | currency: 'BRL'  }}</td>
+              <td>
+                <!-- <button class="btn btn-sm btn-danger" (click)="excluirAluno(item)">
+                  <i class="bi bi-trash"></i> Excluir
+                </button>
+                <button class="btn btn-sm btn-primary" (click)="editarAluno(item)">
+                  <i class="bi bi-pencil"></i> Editar
+                </button> -->
+                <button class="btn btn-sm btn-success" (click)="exibirModalRecarga(item)">
+                  <i class="bi bi-currency-dollar"></i> Recarga
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Recarga -->
+<div class="modal" tabindex="-1" [ngClass]="{'show': showModalRecarga}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Recarga para {{ alunoSelecionado?.firstName }} {{ alunoSelecionado?.lastName }}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="fecharModalRecarga()"></button>
+      </div>
+      <div class="modal-body">
+        <app-checkout [aluno]="alunoSelecionado" (fecharModalCheckout)="fecharModalCheckout($event)"></app-checkout>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal" tabindex="-1" [ngClass]="{'show': showModalPedidosERecarga}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Recargas e Pedidos</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModalPedidosERecarga()"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Transação</th>
+              <th>Total</th>
+              <th>Taxa</th>
+              <th>Filho</th>
+              <th>Produtos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of pedidosERecarga">
+              <td>
+                <span class="badge rounded-pill" [ngClass]="{'bg-danger': item.type === 'compra', 'bg-success': item.type === 'recarga'}">
+                  {{ item?.type }}
+                </span>
+              </td>
+              <td>{{ item?.total | currency: 'BRL' }}</td>
+              <td>{{ item?.total * 0.05 | currency: 'BRL' }}</td>
+              <td>{{ item?.user?.firstName}} {{item?.user?.lastName}}</td>
+              <td *ngIf="item?.products && item?.products?.length > 0">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Preço</th>
+                      <th>Imagem</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let produto of item?.products">
+                      <td>{{ produto?.nome }}</td>
+                      <td>{{ produto?.preco | currency: 'BRL' }}</td>
+                      <td>
+                        <img [src]="produto.imagem.path" alt="{{ produto.nome }}" height="50">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

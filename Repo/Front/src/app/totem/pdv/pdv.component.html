@@ -1,0 +1,61 @@
+<!-- Sidebar Esquerdo -->
+<app-sidebar (filterProducts)="onFilterProducts($event)" [categorias]="this.categorias"></app-sidebar>
+
+<!-- Conteúdo principal -->
+<div class="main" *ngIf="this.user">
+  <h1 class="title">{{selectedCategory}}</h1>
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row">
+          <!-- Cards de produtos aqui -->
+          <app-product-card [produtos]="filteredProdutos"></app-product-card>
+        </div>
+      </div>
+      <div class="col-md-3" style="margin-left: 20px;">
+        <!-- carrinho -->
+          <app-cart (attCredit)="onAttCredit($event)" ></app-cart>
+      </div>
+      <div class="col-md-3" style="margin-left: 20px;">
+        <!-- info user -->
+          <app-user-account [user]="this.user" (exit)="onExit($event)"></app-user-account>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal" [ngClass]="{'show': showModal}">
+    <div class="modal-content">
+      <h2 style="text-align: center;">Login</h2>
+      <img src="/assets/img/logo-boa.png" style="height: 180px; display: block; margin: 0 auto;" alt="Saborito">
+      <br>
+      <br>
+      <form (ngSubmit)="login()" style="display: flex;">
+        <div style="flex: 1;">
+          <div id="photo" style="text-align: center;">
+            <div style="position: relative; display: inline-block;">
+              <i class="bi bi-person-circle" style="font-size: 70px;"></i>
+              <img *ngIf="studentPhoto && studentPhoto != 'nada'" [src]="studentPhoto" alt="" style="position: absolute; top: 8px; left: 1px; width: 80px; height: 80px; object-fit: cover; border-radius: 50%;">
+            </div>
+          </div>
+          <label for="studentId">Aluno</label><br>
+          <input class="form-control" type="text" id="studentId" name="studentId" [(ngModel)]="studentId" readonly><br>
+          <div id="photo">
+            <label for="password">Senha:</label><br>
+            <input class="form-control" type="password" id="password" name="password" [(ngModel)]="password" required><br>
+          </div>
+        </div>
+        <div style="flex: 1;" *ngIf="!studentPhoto">
+          <app-numeric-keyboard (digitPressed)="addDigitAluno($event)"></app-numeric-keyboard>
+        </div>
+        <div style="flex: 1;" *ngIf="studentPhoto">
+          <app-numeric-keyboard (digitPressed)="addDigitPassword($event)"></app-numeric-keyboard>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+
+

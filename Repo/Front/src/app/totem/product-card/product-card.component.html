@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-3" *ngFor="let produto of produtos">
+    <div class="card produto-card mb-3">
+      <div style="height: 200px; overflow: hidden;"> <!-- Definindo uma altura fixa para a imagem -->
+        <img [src]="produto.imagem" class="card-img-top" [alt]="produto.nome" style="object-fit: cover; height: 100%;"> <!-- Garantindo que a imagem cubra todo o espaço disponível -->
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ produto.nome }}</h5>
+        <p class="card-text">{{ produto.preco | currency: 'BRL' }}</p>
+        <button class="btn btn-primary btn-carrinho"
+                (click)="adicionarAoCarrinho(produto)"
+                [disabled]="produto.isLoading"
+                >
+          <span *ngIf="!produto.isLoading">Adicionar ao Carrinho</span>
+          <span *ngIf="produto.isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <!-- Mostra o spinner de carregamento apenas se isLoading for true -->
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<div class="content">
+  <!-- Cabeçalho Superior -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <!-- Saudações e Boas-vindas -->
+      <span class="navbar-text">
+        Bem-vindo, {{user?.userName}}
+      </span>
+    </div>
+    <button class="btn btn-danger" (click)="Sair()">sair</button>
+  </nav>
+
+  <!-- Conteúdo Central -->
+  <div class="container mt-4">
+    <!-- Seção de Dashboard -->
+    <section id="dashboard">
+      <h2>Dashboard</h2>
+      <div class="row">
+        <!-- Card de Vendas -->
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Vendas</h5>
+              <p class="card-text">Total de Vendas: {{this.analitics?.totalVendas | currency: 'BRL'}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card de Clientes -->
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Alunos</h5>
+              <p class="card-text">Total de Alunos: {{this.analitics?.alunos}}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card de Recargas -->
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Recargas</h5>
+              <p class="card-text">Total de Recargas: {{this.analitics?.totalRecargas | currency: 'BRL'}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4" style="padding-top: 10px;">
+          <div class="card">
+            <div class="card-body" >
+              <h5 class="card-title">Extornos</h5>
+              <p class="card-text">Total de Extornos: {{this.analitics?.extornos || 0 | currency: 'BRL'}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4" style="padding-top: 10px;">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Responsáveis</h5>
+              <p class="card-text">Total de Responsáveis: {{this.analitics?.responsaveis || 0}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4" style="padding-top: 10px;">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Transferências</h5>
+              <p class="card-text">Total de Recargas: {{this.analitics?.transferencias || 0 | currency: 'BRL'}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <!-- Gráfico de Faturamento por Dia -->
+      <div class="row mt-4">
+        <div class="col-md-8">
+          <canvas id="faturamentoPorDia"></canvas>
+        </div>
+      </div>
+
+      <!-- Lista de Clientes que Mais Compram -->
+      <div class="mt-4">
+        <h5>Alunos que Mais Compram</h5>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let cliente of this.analitics?.alunosMaisCompram">
+                {{ cliente.userName }} - {{ cliente?.totalGasto | currency: 'BRL' }}
+            </li>
+        </ul>
+    </div>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+.product-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+}
+
+.product-card .details {
+  text-align: center;
+}
+
+.product-card h3 {
+  margin-top: 10px;
+}
+
+.product-card p {
+  font-weight: bold;
+}
+
+.product-card .btn-add-to-cart {
+  margin-top: 10px;
+}
+
+
+.category-img{
+  float: right;
+}
+
+
+/* Adicione esta regra para definir uma altura fixa para o botão */
+.btn-carrinho {
+  min-width: 150px; /* Defina o mínimo de largura desejado para o botão */
+  height: 60px; /* Defina uma altura fixa para o botão */
+  position: relative; /* Para posicionar o spinner dentro do botão */
+}
+

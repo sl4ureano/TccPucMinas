@@ -1,0 +1,41 @@
+<div class="carrinho card">
+  <h3>Carrinho</h3>
+  <hr>
+  <div id="itensCarrinho" style="height: calc(100% - 200px); overflow-y: auto; margin-bottom: 20px;">
+    <div *ngFor="let item of carrinhoItens; let i = index" class="carrinho-item" style="display: flex; align-items: center;">
+      <div style="flex: 1;">
+        {{ item.nome }} (x{{ item.quantidade }}) <span><b>R${{ (item.preco * item.quantidade).toFixed(2) }}</b></span>
+      </div>
+      <button class="btn btn-outline-danger btn-sm" (click)="removerItem(i)" style="margin-bottom: 6px;"><i class="bi bi-x-lg"></i></button>
+    </div>
+  </div>
+  <div style="margin-top: 20px; text-align: left;">
+    <hr>
+    <div class="total">Sub-total:{{ this.getSubTotal() | currency: 'BRL' }}</div>
+    <div class="total">Taxa de serviço: {{ this.getTaxaServico() | currency: 'BRL' }}</div>
+    <div class="total"><strong>Total: {{ this.getTotal() | currency: 'BRL' }}</strong></div>
+  </div>
+  <button id="finalizarCompra" class="btn btn-success btn-block btn-lg" (click)="IniciaCompra()">Finalizar Compra <br><i class="bi bi-credit-card"></i></button>
+</div>
+
+<div class="modal" [ngClass]="{'show': showModal}">
+  <div class="modal-content">
+    <h3>Carrinho</h3>
+    <hr>
+    <ul class="carrinho-list">
+      <li *ngFor="let item of carrinhoItens" class="list-group-item">
+        {{ item.nome }} (x<strong>{{ item.quantidade }}</strong>) - {{ (item.preco * item.quantidade).toFixed(2) | currency: 'BRL' }}
+      </li>
+    </ul>
+    <hr>
+    <div class="total">Sub-total: {{ getSubTotal() | currency: 'BRL' }}</div>
+    <div class="total">Taxa de serviço:{{ getTaxaServico() | currency: 'BRL' }}</div>
+    <div class="total"><strong>Total a pagar: {{ getTotal() | currency: 'BRL' }}</strong></div>
+    <div class="modal-footer d-flex justify-content-center">
+      <button type="button" class="btn btn-secondary btn-lg mr-2" (click)="closeModal()">Continuar Comprando <br><i class="bi bi-cart-plus"></i></button>
+      <button type="button" class="btn btn-success btn-lg" (click)="finalizarCompra()">Efetuar Pagamento <br><i class="bi bi-credit-card"></i></button>
+    </div>
+  </div>
+</div>
+
+

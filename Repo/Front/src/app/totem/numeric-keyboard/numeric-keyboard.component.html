@@ -1,0 +1,6 @@
+<!-- numeric-keyboard.component.html -->
+<div class="numeric-keyboard">
+  <div class="row" *ngFor="let row of keyboardRows">
+    <button class="btn btn-secondary btn-lg" *ngFor="let digit of row" (click)="addDigit(digit)" type="button">{{ digit }}</button>
+  </div>
+</div>

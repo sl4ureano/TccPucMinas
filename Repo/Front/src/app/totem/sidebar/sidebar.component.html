@@ -1,0 +1,14 @@
+<div class="sidebar" style="position: fixed; top: 0; left: 0; height: 100%; overflow-y: auto;">
+  <div style="position: sticky; top: 0;">
+    <img src="/assets/img/logo-boa.png" style="height: 160px; display: block; margin: 0 auto;" alt="Saborito">
+  </div>
+  <!-- Botão de rolagem para cima -->
+  <button class="btn btn-secondary btn-sm mt-2" id="scrollUpBtn" style="display: none; position: sticky; top: 160px; left: 50%; transform: translateX(-50%);">▲</button>
+  <div class="sidebar-links" style="overflow-y: auto; max-height: calc(100vh - 210px); padding-top: 10px; position: relative;">
+    <a *ngFor="let categoria of categorias" class="pointer" (click)="filterProducts.emit(categoria?.nome)">
+      <img [src]="categoria?.img?.path" class="invert" alt="{{ categoria?.nome }}"><br>{{ categoria?.nome }}
+    </a>
+  </div>
+  <!-- Botão de rolagem para baixo -->
+  <button class="btn btn-secondary btn-sm mb-2" id="scrollDownBtn" style="display: none; position: sticky; bottom: 0; left: 50%; transform: translateX(-50%);">▼</button>
+</div>

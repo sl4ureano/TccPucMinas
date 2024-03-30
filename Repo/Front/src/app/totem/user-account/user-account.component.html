@@ -1,0 +1,13 @@
+<div class="account" style="display: block; margin-left: auto; margin-right: auto; z-index: 1; text-align: center;">
+  <div style="position: relative; display: inline-block;">
+    <i class="bi bi-person-circle" style="font-size: 70px;"></i>
+    <img *ngIf="this.user?.photo" src="{{this.user?.photo}}" alt="" style="position: absolute; top: 8px; left: 1px; width: 80px; height: 80px; object-fit: cover; border-radius: 50%;">
+  </div>
+  <h6><strong>{{this.user?.userName}}</strong></h6>
+  <h5>Crédito:</h5>
+  <h3><strong>{{this.user?.saldo | currency: 'BRL' }}</strong></h3>
+  <div style="position: absolute; width: calc(100% - 20px); left: 15px;">
+    <hr>
+    <button id="finalizarCompra" class="btn btn-danger btn-block btn-lg" (click)="exit.emit('true')">Sair <i class="bi bi-box-arrow-right"></i></button>
+  </div>
+</div>

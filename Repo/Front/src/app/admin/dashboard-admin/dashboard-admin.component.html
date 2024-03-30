@@ -1,0 +1,26 @@
+
+
+<app-sidebar-admin (sair)="onSair($event)" [user]="this.user"></app-sidebar-admin>
+
+<app-content (sair)="onSair($event)" [analitics]="this.analitics" [user]="this.user" *ngIf="this.user?.role == 'Admin'"></app-content>
+
+
+<div class="modal" [ngClass]="{'show': showModal}">
+  <div class="modal-content">
+    <h2 style="text-align: center;">Admin / Responsavel</h2>
+    <img src="/assets/img/logo-boa.png" style="height: 180px; display: block; margin: 0 auto;" alt="Saborito">
+    <br>
+    <br>
+    <form (ngSubmit)="login()" style="display: flex;">
+      <div style="flex: 1;">
+        <label for="studentId">Login</label><br>
+        <input class="form-control" type="text" id="email" name="email" [(ngModel)]="email" required><br>
+        <label for="password">Senha:</label><br>
+        <input class="form-control" type="password" id="password" [(ngModel)]="password" name="password" required><br>
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary" type="submit">Acessar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
